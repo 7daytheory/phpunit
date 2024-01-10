@@ -79,4 +79,35 @@ class RouterTest extends TestCase
         // Assert that the router has no routes when it is created
         $this->assertEmpty((new Router())->routes());
     }
+
+    /**
+     * @test
+     * @dataProvider routeNotFoundCasesDataProvider
+     */
+    public function test_throws_not_found_exception(string $requestUri, string $requestMethod): void
+    {
+        $users = new class() {
+            public function delete(): bool
+            {
+                return true;
+            }
+        };
+
+        $this->router->get('/users', [$users::class, 'store']);
+        $this->router->post('/users', ['Users', 'store']);
+
+        $this->expectException(RouteNotFoundException::class);
+        $this->router->resolve($requestUri, $requestMethod);
+    }
+
+    //Passes data to the above function
+    public function routeNotFoundCasesDataProvider(): array 
+    {
+        return [
+            ['/users', 'putt'],
+            ['/invoices', 'post'],
+            ['/users', 'get'],
+            ['/users', 'post'],
+        ];
+    }
 }    

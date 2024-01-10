@@ -5,7 +5,7 @@ declare(strict_types=1);
 //Defines the namespace for the class
 namespace App;
 
-use App\Exceptions\RouterNotFoundException;
+use App\Exceptions\RouteNotFoundException;
 
 class Router 
 {
@@ -66,7 +66,7 @@ class Router
     
         if (! $action) 
         {
-            throw new RouterNotFoundException("Route not found for {$requestMethod} {$route}");
+            throw new RouteNotFoundException("Route not found for {$requestMethod} {$route}");
         }
       
         if (is_callable($action))
@@ -87,5 +87,7 @@ class Router
                 }
             }
         }
+
+        throw new RouteNotFoundException();
     }
 }
