@@ -26,7 +26,7 @@ class RouterTest extends TestCase
     public function test_if_it_registers_a_route(): void
     {   
         // Register a route for the 'get' HTTP method at the path '/users', pointing to the ['Users', 'index'] controller action
-        $router->register('get', '/users', ['Users', 'index']);
+        $this->router->register('get', '/users', ['Users', 'index']);
     
         // Define the expected result after registering the route
         $expected = [
@@ -36,13 +36,13 @@ class RouterTest extends TestCase
         ];
     
         // Assert that the routes returned by the router match the expected result
-        $this->assertEquals($expected, $router->routes());
+        $this->assertEquals($expected, $this->router->routes());
     }
     
     public function test_it_registers_a_get_route(): void 
     {
         // Register a route for the 'get' HTTP method
-        $router->get('/users', ['Users', 'index']);
+        $this->router->get('/users', ['Users', 'index']);
     
         // Define the expected result after registering the route
         $expected = [
@@ -52,13 +52,13 @@ class RouterTest extends TestCase
         ];
     
         // Assert that the routes returned by the router match the expected result
-        $this->assertEquals($expected, $router->routes());
+        $this->assertEquals($expected, $this->router->routes());
     }
     
     public function test_it_registers_a_post_route(): void 
     {
         // Register a route for the 'post' HTTP method
-        $router->post('/users', ['Users', 'index']);
+        $this->router->post('/users', ['Users', 'index']);
     
         // Define the expected result after registering the route
         $expected = [
@@ -68,15 +68,15 @@ class RouterTest extends TestCase
         ];
     
         // Assert that the routes returned by the router match the expected result
-        $this->assertEquals($expected, $router->routes());
+        $this->assertEquals($expected, $this->router->routes());
     }
     
     public function test_no_routes_when_creates()
     {
         //Create a new instance
-        $router = new Router(); //Would still work without this but it's specificially testing new router scenarion with no routes
+        //$router = new Router(); //Would still work without this but it's specificially testing new router scenarion with no routes
 
         // Assert that the router has no routes when it is created
-        $this->assertEmpty($router->routes());
+        $this->assertEmpty((new Router())->routes());
     }
 }    
