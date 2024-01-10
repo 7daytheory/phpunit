@@ -68,12 +68,11 @@ class Router
         {
             throw new RouterNotFoundException("Route not found for {$requestMethod} {$route}");
         }
-    
+      
         if (is_callable($action))
         {
             return call_user_func($action);
-        }
-    
+        }   
         if (is_array($action))
         {
             [$class, $method] = $action;
